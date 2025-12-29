@@ -79,6 +79,8 @@ namespace yookgaejang
         // Start is called before the first frame update
         void Start()
         {
+            Map = GameObject.Find("MAP").transform;
+            GenerateMap();   
             
         }
 
@@ -94,7 +96,6 @@ namespace yookgaejang
             mapHeight = MapInfo.height;
             Debug.Log("mapWidth : " + mapWidth + ", mapHeight : " + mapHeight);
             Color[] pixels = MapInfo.GetPixels();
-
             for(int i = 0; i < mapHeight; i++)
             {
                 for(int j = 0; j < mapWidth; j++)
@@ -103,6 +104,7 @@ namespace yookgaejang
                     MapData data = new MapData(j,i);
                     if(pixelColor == colorBlock[(int)BlockName.Wall])
                     {
+                        Debug.Log("test");
                         Instantiate(Block[(int)BlockName.Wall], new Vector3(blockScale * j, 0, blockScale * i), Quaternion.identity, Map);
                         data.blockName = BlockName.Wall;
                     }
