@@ -90,6 +90,48 @@ namespace yookgaejang
         
         }
         
+        public bool isRoad(int x, int z, int size)
+        {
+            for (int i = 0; i < size; i++)
+            {
+                for (int j = 0; j < size; j++)
+                {
+                    int posX = x + i;
+                    int posZ = z + j;
+                    if(posX >= mapWidth || posX <= 0 || posZ >= mapHeight || posZ <= 0)
+                    {
+                        return false;
+                    }
+                    MapData temp = GetMapData(posX, posZ);
+                    if(temp.blockName != BlockName.Walkable)
+                    {
+                        return false;
+                    }
+
+                }
+            }
+            return true;
+        }
+
+        public MapData GetMapData(int x, int z)
+        {
+            return mapdata.Find(data => data.x == x && data.z == z);
+        }
+
+        public void ChangeBuild(int x, int z, int size, BlockName blockName)
+        {
+            for (int i = 0; i < size; i++)
+            {
+                for (int j = 0; j < size; j++)
+                {
+                    int posX = x + i;
+                    int posZ = z + j;
+                    GetMapData(posX, posZ).blockName = blockName;
+                }
+            }
+        }
+
+
         public void GenerateMap()
         {
             mapWidth = MapInfo.width;
@@ -104,7 +146,6 @@ namespace yookgaejang
                     MapData data = new MapData(j,i);
                     if(pixelColor == colorBlock[(int)BlockName.Wall])
                     {
-                        Debug.Log("test");
                         Instantiate(Block[(int)BlockName.Wall], new Vector3(blockScale * j, 0, blockScale * i), Quaternion.identity, Map);
                         data.blockName = BlockName.Wall;
                     }
