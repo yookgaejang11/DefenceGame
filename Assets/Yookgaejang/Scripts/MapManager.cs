@@ -103,7 +103,7 @@ namespace yookgaejang
                         return false;
                     }
                     MapData temp = GetMapData(posX, posZ);
-                    if(temp.blockName != BlockName.Walkable)
+                    if(temp.blockName != BlockName.BuildingLand)
                     {
                         return false;
                     }
